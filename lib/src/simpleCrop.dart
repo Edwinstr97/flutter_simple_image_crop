@@ -17,13 +17,17 @@ class ImgCrop extends StatefulWidget {
   final ImageProvider image;
   final double maximumScale;
   final ImageErrorListener onImageError;
+
   final double chipRadius;
   final double chipRatio;
+  // final ClipRRect chnageborder;
+
   final ChipShape chipShape;
   final double handleSize;
   const ImgCrop(
       {Key key,
       this.image,
+      // this.chnageborder
       this.maximumScale: 2.0,
       this.onImageError,
       this.chipRadius = 150,
@@ -476,7 +480,7 @@ class _CropPainter extends CustomPainter {
             boundaries.top,
             boundaries.right,
             boundaries.bottom,
-            Radius.circular(boundaries.height / 2)));
+            Radius.circular(boundaries.height / 8)));
     }
     canvas.clipPath(Path.combine(
         PathOperation.difference, _path1, _path2)); //MARK: 合并路径，选择交叉选区
@@ -486,20 +490,31 @@ class _CropPainter extends CustomPainter {
       ..color = Colors.white
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
+
     if (chipShape == ChipShape.rect) {
-      canvas.drawRect(
-          Rect.fromLTRB(boundaries.left - 1, boundaries.top - 1,
-              boundaries.right + 1, boundaries.bottom + 1),
-          paint);
+      // canvas.drawRRect(
+      //     RRect.fromLTRBR(boundaries.left, boundaries.top - 2,
+      //         boundaries.right + 1, boundaries.bottom + 1, Radius.circular(20)),
+      //     paint);
     } else {
-      canvas.drawRRect(
-          RRect.fromLTRBR(
-              boundaries.left - 1,
-              boundaries.top - 1,
-              boundaries.right + 1,
-              boundaries.bottom + 1,
-              Radius.circular(boundaries.height / 2)),
-          paint);
+      // canvas.drawRRect(
+      //     // RRect.fromRectAndRadius(
+      //     //     Rect.fromLTWH(
+      //     //       100,
+      //     //       80,
+      //     //       70,
+      //     //       gap * 5,
+      //     //     ),
+      //     //     Radius.circular(15.0)),
+      //     );
+      // canvas.drawRRect(
+      //     RRect.fromLTRBR(
+      //         boundaries.left - 1,
+      //         boundaries.top - 1,
+      //         boundaries.right + 1,
+      //         boundaries.bottom + 1,
+      //         Radius.circular(boundaries.height / 2)),
+      //     paint);
     }
 
     canvas.restore();

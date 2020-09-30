@@ -44,6 +44,7 @@ class _MyHomeRouteState extends State<MyHomeRoute> {
   }
 
   void _showActionSheet() {
+    print("DFDSFDSFSADSFDFDSG");
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -95,6 +96,7 @@ class _SimpleCropRouteState extends State<SimpleCropRoute> {
   final cropKey = GlobalKey<ImgCropState>();
 
   Future<Null> showImage(BuildContext context, File file) async {
+    print("SDFDSdfdsfsgfvzcvzdcjkbcdbcldjl");
     new FileImage(file)
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((ImageInfo info, bool _) {
@@ -137,7 +139,8 @@ class _SimpleCropRouteState extends State<SimpleCropRoute> {
           child: ImgCrop(
             key: cropKey,
             chipRadius: 100,
-            chipShape: ChipShape.rect,
+            chipShape: ChipShape.circle,
+
             chipRatio: 2 / 1,
             maximumScale: 3,
             image: FileImage(args['image']),
@@ -146,13 +149,30 @@ class _SimpleCropRouteState extends State<SimpleCropRoute> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final crop = cropKey.currentState;
-            final croppedFile =
-                await crop.cropCompleted(args['image'], preferredSize: 1000);
-            showImage(context, croppedFile);
+            print("Floating Butoon");
+            final crop = await cropKey.currentState.area;
+            print("$crop");
+
+            // final croppedFile =
+            //     await crop.cropCompleted(args['image'], preferredSize: 1000);
+            // showImage(context, crop);
           },
           tooltip: 'Increment',
-          child: Text('Crop'),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Container(
+              child: Text("SDF"),
+            ),
+          ),
         ));
   }
+  // RRect.fromRectAndRadius(
+  //           Rect.fromLTWH(
+  //             size.width / 2 - boundaries - smallMarkWidth - 15,
+  //             boundaries + 8,
+  //             boundaries + 70,
+  //             boundaries + 5,
+  //           ),
+  //           Radius.circular(15.0)),
+  //       paint);
 }
